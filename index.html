@@ -5,35 +5,74 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>العريقي للخدمات الصناعية والهندسية</title>
+    <!-- اتصال مسبق لتوفير وقت جلب الخطوط والمكتبات -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://esm.sh">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              slate: {
+                850: '#151e32',
+                950: '#020617',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap&font-display=swap" rel="stylesheet">
     <style>
+      :root {
+        --primary-yellow: #eab308;
+        --deep-navy: #020617;
+        --steel-grey: #94a3b8;
+      }
       body {
         font-family: 'Tajawal', sans-serif;
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+        overflow-y: auto;
+        /* إخفاء شريط التمرير لفايرفوكس */
+        scrollbar-width: none; 
+        -ms-overflow-style: none;
+        /* تحسين أداء الخطوط */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
-      /* إخفاء شريط التمرير لـ Chrome, Safari, Opera */
-      ::-webkit-scrollbar {
-        display: none;
+      
+      /* تسريع الأداء باستخدام GPU */
+      .gpu-accelerated {
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+        will-change: transform;
       }
+
       .hero-gradient {
         background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       }
       ::selection {
-        background-color: #eab308;
-        color: #0f172a;
+        background-color: var(--primary-yellow);
+        color: var(--deep-navy);
       }
+      
+      /* إخفاء شريط التمرير لكروم وإيدج وسفاري */
+      ::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+      }
+
       .portfolio-card:hover img {
-        transform: scale(1.1);
+        transform: scale(1.05); /* تقليل التكبير لتحسين الأداء */
       }
-      @keyframes float {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
-        100% { transform: translateY(0px); }
-      }
-      .float-animation {
-        animation: float 3s ease-in-out infinite;
+      * {
+        -webkit-tap-highlight-color: transparent;
       }
     </style>
   <script type="importmap">
@@ -42,12 +81,13 @@
     "react": "https://esm.sh/react@^19.2.3",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "react/": "https://esm.sh/react@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.37.0"
+    "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2"
   }
 }
 </script>
 </head>
-  <body class="bg-gray-50 text-gray-900 overflow-x-hidden">
+  <body class="bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-white overflow-x-hidden transition-colors duration-300">
     <div id="root"></div>
   </body>
 </html>

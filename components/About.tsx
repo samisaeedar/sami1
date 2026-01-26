@@ -1,115 +1,55 @@
 
-import React, { useEffect, useState, useRef } from 'react';
-
-const Counter: React.FC<{ end: number; suffix?: string; label: string }> = ({ end, suffix = "", label }) => {
-  const [count, setCount] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const elementRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.5 }
-    );
-    if (elementRef.current) observer.observe(elementRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!isVisible) return;
-    let start = 0;
-    const duration = 2000;
-    const increment = end / (duration / 16);
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= end) {
-        setCount(end);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 16);
-    return () => clearInterval(timer);
-  }, [isVisible, end]);
-
-  return (
-    <div ref={elementRef} className="text-center p-4 bg-white rounded-xl shadow-sm border border-slate-100 flex-1">
-      <div className="text-3xl font-black text-yellow-500 mb-1">
-        {count}{suffix}
-      </div>
-      <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">{label}</div>
-    </div>
-  );
-};
+import React from 'react';
 
 const About: React.FC = () => {
   return (
-    <section id="about" className="py-24 bg-slate-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="relative order-2 lg:order-1">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-4">
-                <img 
-                  src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=400" 
-                  alt="Engineering" 
-                  className="rounded-2xl shadow-lg w-full transform hover:scale-105 transition-transform duration-500"
-                />
-                <img 
-                  src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=400" 
-                  alt="Industrial" 
-                  className="rounded-2xl shadow-lg w-full transform hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="pt-12">
-                <img 
-                  src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=400" 
-                  alt="Control Systems" 
-                  className="rounded-2xl shadow-lg w-full transform hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-            </div>
-            {/* Decorative element */}
-            <div className="absolute -z-10 top-0 right-0 w-64 h-64 bg-yellow-200 rounded-full blur-3xl opacity-20"></div>
-          </div>
-          
-          <div className="order-1 lg:order-2">
-            <h2 className="text-yellow-600 font-bold text-sm uppercase tracking-widest mb-3 flex items-center gap-2">
-              <span className="w-8 h-px bg-yellow-600"></span>
-              لماذا نحن؟
-            </h2>
-            <h3 className="text-3xl md:text-4xl font-black text-slate-900 mb-6 leading-tight">
-              كادر هندسي مؤهل يجمع بين <span className="text-yellow-500">الدقة والجودة</span>
-            </h3>
-            <p className="text-slate-600 text-lg mb-8 leading-relaxed">
-              يعتمد كادرنا في العريقي على منهجيات عمل مدروسة، ودقة متناهية في التفاصيل، مع التزام صارم بمعايير الجودة والسلامة المهنية لضمان استمرارية أعمالكم.
-            </p>
-            
-            <div className="flex flex-wrap gap-4 mb-10">
-              <Counter end={10} suffix="+" label="سنوات خبرة" />
-              <Counter end={250} suffix="+" label="مشروع منجز" />
-              <Counter end={100} suffix="%" label="رضا العملاء" />
-            </div>
+    <section id="about" className="py-16 bg-white dark:bg-slate-950 relative overflow-hidden transition-colors duration-500">
+      {/* عناصر خلفية هندسية */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-yellow-500/5 rounded-full blur-[120px] -z-10"></div>
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] -z-10"></div>
 
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-              {[
-                'تصميم وفق المعايير الدولية',
-                'تقليل الأعطال المفاجئة',
-                'صيانة احترافية شاملة',
-                'دعم فني على مدار الساعة'
-              ].map((item, idx) => (
-                <li key={idx} className="flex items-center gap-3 text-slate-700 font-bold text-sm bg-white p-3 rounded-lg border border-slate-100 shadow-sm">
-                  <span className="flex-shrink-0 w-5 h-5 bg-yellow-500 text-white rounded-full flex items-center justify-center text-[10px]">
-                    L
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
+      <div className="max-w-4xl mx-auto px-6 text-center">
+        <div className="inline-flex items-center gap-3 px-4 py-2 bg-yellow-500/10 border border-yellow-500/20 rounded-full mb-8 animate-in fade-in zoom-in duration-500">
+          <span className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></span>
+          <span className="text-yellow-600 dark:text-yellow-500 font-black text-[10px] uppercase tracking-[0.2em]">هندسة بلا حدود</span>
+        </div>
+        
+        <h2 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white leading-[1.1] mb-8">
+          نحن نرسم <br />
+          <span className="text-yellow-500">مسارات الطاقة</span> <br />
+          بذكاء هندسي
+        </h2>
+        
+        <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed font-medium mb-12 max-w-2xl mx-auto">
+          في العريقي للخدمات الهندسية، لا نكتفي بالإصلاح، بل نعيد تعريف الكفاءة التشغيلية. ندمج الخبرة الميدانية مع أحدث تقنيات التحكم الرقمي لنمنح منشأتكم استقراراً لا يتوقف.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="p-8 bg-slate-50 dark:bg-slate-900 rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-yellow-500/30 transition-colors shadow-sm hover:shadow-xl">
+            <p className="text-4xl font-black text-yellow-500 mb-2">12+</p>
+            <p className="text-xs font-black text-slate-400 uppercase tracking-widest">عاماً من التميز</p>
+          </div>
+          <div className="p-8 bg-slate-50 dark:bg-slate-900 rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-yellow-500/30 transition-colors shadow-sm hover:shadow-xl">
+            <p className="text-4xl font-black text-yellow-500 mb-2">500+</p>
+            <p className="text-xs font-black text-slate-400 uppercase tracking-widest">مشروع منجز</p>
+          </div>
+          <div className="p-8 bg-slate-50 dark:bg-slate-900 rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-yellow-500/30 transition-colors shadow-sm hover:shadow-xl flex flex-col justify-center items-center">
+             <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center text-slate-950 mb-3 shadow-lg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+             </div>
+             <p className="text-slate-900 dark:text-white font-black text-sm">اعتمادية مطلقة</p>
           </div>
         </div>
+
+        <a 
+          href="https://engaliareeki.github.io/web/assets/files/Al-Areiqi_Company_Profile.pdf"
+          target="_blank"
+          download="Al-Areiqi_Company_Profile.pdf"
+          className="group inline-flex items-center gap-4 bg-slate-950 dark:bg-white text-white dark:text-slate-950 px-8 py-5 rounded-2xl font-black text-sm hover:scale-105 transition-all shadow-xl hover:shadow-2xl cursor-pointer"
+        >
+          تحميل الملف التعريفي PDF
+          <svg className="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+        </a>
       </div>
     </section>
   );
